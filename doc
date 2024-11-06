@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Check if Google Chrome is installed
+if dpkg -l | grep -q "google-chrome"; then
+    echo "Google Chrome is installed. Proceeding with uninstallation..."
+    
+    # Remove Google Chrome using apt (the proper package manager)
+    sudo apt-get remove --purge -y google-chrome-stable
+    
+    # Remove any remaining configuration files
+    sudo apt-get autoremove --purge -y
+    sudo apt-get clean
+    
+    # Remove Google Chrome's repository if it exists
+    sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+    
+    # Optionally, remove the Google Chrome user data directory
+    rm -rf ~/.config/google-chrome
+    rm -rf ~/.cache/google-chrome
+    
+    echo "Google Chrome has been uninstalled successfully!"
+else
+    echo "Google Chrome is not installed on this system."
+fi
+
+
+#How to Use the Script:
+#Save the script to a file, e.g., uninstall_chrome.sh.
+#Make the script executable:
